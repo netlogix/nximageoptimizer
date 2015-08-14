@@ -1,0 +1,14 @@
+# cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.jpg.enabled
+jpg.enabled = 1
+# cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.jpg.progressive
+jpg.progressive = 1
+# cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.png.enabled
+png.enabled = 1
+# cat=formats; type=integer; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.png.optimizationLevel
+png.optimizationLevel = 5
+# cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.gif.enabled
+gif.enabled = 1
+# cat=formats; type=integer; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.gif.optimizationLevel
+gif.optimizationLevel = 3
+# cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.svg.enabled
+svg.enabled = 1
