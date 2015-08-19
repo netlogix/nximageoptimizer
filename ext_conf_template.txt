@@ -5,7 +5,7 @@ jpg.progressive = 1
 # cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.png.enabled
 png.enabled = 1
 # cat=formats; type=integer; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.png.optimizationLevel
-png.optimizationLevel = 5
+png.optimizationLevel = 1
 # cat=formats; type=boolean; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.gif.enabled
 gif.enabled = 1
 # cat=formats; type=integer; label=LLL:EXT:nximageoptimizer/Resources/Private/Language/locallang.xlf:formats.gif.optimizationLevel
