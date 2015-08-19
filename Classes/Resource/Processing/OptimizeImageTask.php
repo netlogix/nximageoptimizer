@@ -2,9 +2,9 @@
 namespace Netlogix\Nximageoptimizer\Resource\Processing;
 
 use TYPO3\CMS\Core\Resource\ProcessedFile;
-use TYPO3\CMS\Core\Resource\Processing\AbstractTask;
+use TYPO3\CMS\Core\Resource\Processing\AbstractGraphicalTask;
 
-class OptimizeImageTask extends AbstractTask {
+class OptimizeImageTask extends AbstractGraphicalTask {
 
 	/**
 	 * @var string
@@ -25,7 +25,7 @@ class OptimizeImageTask extends AbstractTask {
 	 * @return string
 	 */
 	public function getTargetFileName() {
-		return 'nlx_' . $this->getSourceFile()->getNameWithoutExtension() . '_' . $this->getConfigurationChecksum() . '.' . $this->getTargetFileExtension();
+		return 'nlx_' . parent::getTargetFilename();
 	}
 
 	/**
