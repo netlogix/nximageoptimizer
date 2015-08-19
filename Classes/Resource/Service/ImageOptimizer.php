@@ -9,6 +9,7 @@ use TYPO3\CMS\Core\Resource\ProcessedFile;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 class ImageOptimizer implements SingletonInterface {
 
@@ -47,7 +48,8 @@ class ImageOptimizer implements SingletonInterface {
 
 		// This is a hack because we can not return the optimized file
 		if ($optimizedProcessedFile->isProcessed() && $optimizedProcessedFile->getIdentifier() !== '') {
-			$processedFile->setName($optimizedProcessedFile->getName());
+			ObjectAccess::setProperty($processedFile, 'name', $optimizedProcessedFile->getName(), TRUE);
+			ObjectAccess::setProperty($processedFile, 'identifier', $optimizedProcessedFile->getIdentifier(), TRUE);
 		}
 	}
 
