@@ -25,7 +25,7 @@ class OptimizeImageTask extends AbstractGraphicalTask {
 	 * @return string
 	 */
 	public function getTargetFileName() {
-		return 'nlx_' . parent::getTargetFilename();
+		return 'opt_' . parent::getTargetFilename();
 	}
 
 	/**
