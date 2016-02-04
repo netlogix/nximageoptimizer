@@ -50,6 +50,10 @@ class ImageOptimizer implements SingletonInterface {
 		if ($optimizedProcessedFile->isProcessed() && $optimizedProcessedFile->getIdentifier() !== '') {
 			ObjectAccess::setProperty($processedFile, 'name', $optimizedProcessedFile->getName(), TRUE);
 			ObjectAccess::setProperty($processedFile, 'identifier', $optimizedProcessedFile->getIdentifier(), TRUE);
+			$properties = $processedFile->getProperties();
+			$properties['width'] = $optimizedProcessedFile->getProperty('width');
+			$properties['height'] = $optimizedProcessedFile->getProperty('height');
+			ObjectAccess::setProperty($processedFile, 'properties', $properties, TRUE);
 		}
 	}
 
