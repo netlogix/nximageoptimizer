@@ -2,20 +2,42 @@ netlogix ImageOptimizer
 =======================
 TYPO3 CMS package that optimizes images (jpg, png, gif, svg) for web presentation when they are published.
 
-Using jpegtran, optipng, gifsicle and svgo for the optimizations.
+Using jpegtran, optipng, pngquant, gifsicle and svgo for the optimizations.
 
-Installation
-------------
+### Installation
 
-Install the following binaries on your server:
+Install the package via composer.
 
-jpegtran, optipng, gifsicle and svgo
+```bash
+composer require netlogix/nximageoptimizer
+```
 
-Install the package via composer or add it manually.
+### Optimization tools
 
-Configuration
--------------
+Install all the optimizers on Ubuntu:
 
-Optimization can be disabled in the extension configuration for specific file formats.
+```bash
+sudo apt-get install jpegoptim
+sudo apt-get install optipng
+sudo apt-get install pngquant
+sudo npm install -g svgo
+sudo apt-get install gifsicle
+```
 
-Additionally options for optimization level (png & gif), progressive (jpg) can be adjusted.
+Install the binaries on MacOS (using [Homebrew](https://brew.sh/) or [MacPorts](https://www.macports.org/)):
+
+```bash
+brew install jpegoptim
+brew install optipng
+brew install pngquant
+brew install svgo
+brew install gifsicle
+```
+
+```bash
+port install jpegoptim
+port install optipng
+port install pngquant
+port install svgo
+port install gifsicle
+```
