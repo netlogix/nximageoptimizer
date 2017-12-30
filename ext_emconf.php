@@ -1,6 +1,6 @@
 <?php
-$EM_CONF[$_EXTKEY] = array(
-	'title' => 'Netlogix Image Optimizer',
+$EM_CONF['nximageoptimizer'] = [
+	'title' => 'netlogix Image Optimizer',
 	'description' => 'Optimize images when they are processed by the resource publisher',
 	'category' => 'service',
 	'shy' => 1,
@@ -21,14 +21,14 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => '',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'version' => '1.0.0',
+	'version' => '2.0.0',
 	'_md5_values_when_last_written' => '',
-	'constraints' => array(
-		'depends' => array(
-			'typo3' => '6.2.0-7.99.99',
-		),
-		'conflicts' => array(),
-		'suggests' => array()
-	),
-	'suggests' => array()
-);
+	'constraints' => [
+		'depends' => [
+			'typo3' => '7.6.0-8.99.99',
+		],
+		'conflicts' => [],
+		'suggests' => []
+	],
+	'suggests' => []
+];
