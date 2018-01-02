@@ -31,6 +31,7 @@ class ImageOptimizer implements SingletonInterface
 	) {
 		if ($processedFile->getType() === AbstractFile::FILETYPE_IMAGE && $processedFile->isUpdated()) {
 			$this->processImage($processedFile);
+			$this->createWebpImage($processedFile);
 		}
 	}
 
@@ -70,7 +71,7 @@ class ImageOptimizer implements SingletonInterface
 				}
 				break;
 			case 'svg':
-				if (CommandUtility::checkCommand('svgo') === false) {
+				if (CommandUtility::checkCommand('svgo')) {
 					$command = CommandUtility::getCommand('svgo');
 					$parameters = sprintf('--disable=cleanupIDs %s', $path);
 					CommandUtility::exec($command . ' ' . $parameters);
@@ -80,6 +81,28 @@ class ImageOptimizer implements SingletonInterface
 				return;
 		}
 
+	}
+
+	/**
+	 * @param ProcessedFile $processedFile
+	 */
+	protected function createWebpImage(ProcessedFile $processedFile)
+	{
+		$path = realpath($processedFile->getForLocalProcessing(false));
+		switch ($processedFile->getExtension()) {
+			case 'jpg':
+			case 'jpeg':
+			case 'png':
+				if (CommandUtility::checkCommand('cwebp')) {
+					$output = substr($path, 0, strrpos($path, '.')) . '.webp';
+					$command = CommandUtility::getCommand('cwebp');
+					$parameters = sprintf('-q 50 %s -o %s', CommandUtility::escapeShellArgument($path), CommandUtility::escapeShellArgument($output));
+					CommandUtility::exec($command . ' ' . $parameters);
+				}
+				break;
+			default:
+				return;
+		}
 	}
 
 }

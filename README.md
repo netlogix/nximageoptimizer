@@ -41,3 +41,22 @@ port install pngquant
 port install svgo
 port install gifsicle
 ```
+
+### WebP:
+
+Place the following in your .htaccess file and images will be replaced with WebP version.
+```apache
+	# Check if browser support WebP images
+	# Check if WebP replacement image exists
+	# Serve WebP image instead
+	RewriteCond %{HTTP_ACCEPT} image/webp
+	RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+	RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
+```
+
+The Ubuntu source package for imagemagick does not declare a build dependency on libwebp-dev.
+Thus imagemagick gets built without webp support.
+To fix this install the webp package.
+```bash
+sudo apt-get install webp
+```
