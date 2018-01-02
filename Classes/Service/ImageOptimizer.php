@@ -2,6 +2,8 @@
 
 namespace Netlogix\Nximageoptimizer\Service;
 
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
 use TYPO3\CMS\Core\Resource\File;
@@ -9,9 +11,15 @@ use TYPO3\CMS\Core\Resource\ProcessedFile;
 use TYPO3\CMS\Core\Resource\Service\FileProcessingService;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\CommandUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ImageOptimizer implements SingletonInterface
 {
+
+	/**
+	 * @var Logger
+	 */
+	protected $logger;
 
 	/**
 	 * @param FileProcessingService $fileProcessingService
@@ -41,40 +49,38 @@ class ImageOptimizer implements SingletonInterface
 	protected function processImage(ProcessedFile $processedFile)
 	{
 		$path = CommandUtility::escapeShellArgument(realpath($processedFile->getForLocalProcessing(false)));
-		switch ($processedFile->getExtension()) {
-			case 'jpg':
-			case 'jpeg':
+		switch ($processedFile->getMimeType()) {
+			case 'image/jpeg':
 				if (CommandUtility::checkCommand('jpegoptim')) {
 					$command = CommandUtility::getCommand('jpegoptim');
 					$parameters = sprintf('-m85 --strip-all --all-progressive %s', $path);
-					CommandUtility::exec($command . ' ' . $parameters);
+					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				break;
-			case 'png':
+			case 'image/png':
 				if (CommandUtility::checkCommand('pngquant')) {
 					$command = CommandUtility::getCommand('pngquant');
 					$parameters = sprintf('--force %s --output=%s', $path, $path);
-					CommandUtility::exec($command . ' ' . $parameters);
+					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				if (CommandUtility::checkCommand('optipng')) {
 					$command = CommandUtility::getCommand('optipng');
 					$parameters = sprintf('-i0 -o2 -quiet %s', $path);
-					CommandUtility::exec($command . ' ' . $parameters);
+					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				break;
-			case 'gif':
+			case 'image/gif':
 				if (CommandUtility::checkCommand('gifsicle')) {
 					$command = CommandUtility::getCommand('gifsicle');
 					$parameters = sprintf('-b -O3 %s', $path);
-					CommandUtility::exec($command . ' ' . $parameters);
-					return;
+					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				break;
-			case 'svg':
+			case 'image/svg+xml':
 				if (CommandUtility::checkCommand('svgo')) {
 					$command = CommandUtility::getCommand('svgo');
 					$parameters = sprintf('--disable=cleanupIDs %s', $path);
-					CommandUtility::exec($command . ' ' . $parameters);
+					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				break;
 			default:
@@ -89,20 +95,44 @@ class ImageOptimizer implements SingletonInterface
 	protected function createWebpImage(ProcessedFile $processedFile)
 	{
 		$path = realpath($processedFile->getForLocalProcessing(false));
-		switch ($processedFile->getExtension()) {
-			case 'jpg':
-			case 'jpeg':
-			case 'png':
+		switch ($processedFile->getMimeType()) {
+			case 'image/jpeg':
+			case 'image/png':
 				if (CommandUtility::checkCommand('cwebp')) {
 					$output = substr($path, 0, strrpos($path, '.')) . '.webp';
 					$command = CommandUtility::getCommand('cwebp');
-					$parameters = sprintf('-q 50 %s -o %s', CommandUtility::escapeShellArgument($path), CommandUtility::escapeShellArgument($output));
-					CommandUtility::exec($command . ' ' . $parameters);
+					$parameters = sprintf('-q 500 %s -o %s', CommandUtility::escapeShellArgument($path), CommandUtility::escapeShellArgument($output));
+					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				break;
 			default:
 				return;
 		}
+	}
+
+	/**
+	 * @param string $command
+	 * @return string
+	 */
+	private function exec($command)
+	{
+		$lastOutputLine = CommandUtility::exec($command, $output, $returnValue);
+		if ($returnValue !== 0) {
+			$this->getLogger()->error($lastOutputLine, ['command' => $command]);
+		}
+		return $returnValue;
+	}
+
+	/**
+	 * @return Logger
+	 */
+	private function getLogger()
+	{
+		if ($this->logger === null) {
+			$this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(self::class);
+		}
+
+		return $this->logger;
 	}
 
 }

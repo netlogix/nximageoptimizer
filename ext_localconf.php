@@ -16,4 +16,12 @@ call_user_func(function () {
 		'className' => \Netlogix\Nximageoptimizer\Service\ImageService::class
 	);
 
+	$GLOBALS['TYPO3_CONF_VARS']['LOG']['Netlogix']['Nximageoptimizer']['writerConfiguration'] = [
+		\TYPO3\CMS\Core\Log\LogLevel::ERROR => [
+			'TYPO3\\CMS\\Core\\Log\\Writer\\FileWriter' => [
+				'logFile' => 'typo3temp/var/logs/nximageoptimizer.log'
+			]
+		],
+	];
+
 });
