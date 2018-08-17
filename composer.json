@@ -2,7 +2,7 @@
   "name": "netlogix/nximageoptimizer",
   "type": "typo3-cms-extension",
   "description": "Optimize images when they are processed by the resource publisher",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "require": {
     "typo3/cms-core": ">=7.6.0,<9.0"
   },
