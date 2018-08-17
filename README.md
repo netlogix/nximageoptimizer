@@ -50,8 +50,14 @@ Place the following in your .htaccess file and images will be replaced with WebP
 	# Check if WebP replacement image exists
 	# Serve WebP image instead
 	RewriteCond %{HTTP_ACCEPT} image/webp
-	RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
-	RewriteRule (.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
+	RewriteCond %{DOCUMENT_ROOT}/$0.webp -f
+	RewriteRule (.+)\.(jpe?g|png)$ $0.webp [T=image/webp,E=accept:1]
+```
+
+Tell every caching proxy to cache based on "accept" header
+```apache
+	RewriteRule (.+)\.(jpe?g|png|webp)$ - [env=POTENTIAL_WEBP_IMAGE:1]
+	Header merge vary accept env=POTENTIAL_WEBP_IMAGE
 ```
 
 The Ubuntu source package for imagemagick does not declare a build dependency on libwebp-dev.
