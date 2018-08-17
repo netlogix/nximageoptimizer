@@ -101,7 +101,7 @@ class ImageOptimizer implements SingletonInterface
 				if (CommandUtility::checkCommand('cwebp')) {
 					$output = substr($path, 0, strrpos($path, '.')) . '.webp';
 					$command = CommandUtility::getCommand('cwebp');
-					$parameters = sprintf('-q 500 %s -o %s', CommandUtility::escapeShellArgument($path), CommandUtility::escapeShellArgument($output));
+					$parameters = sprintf('-q 50 %s -o %s', CommandUtility::escapeShellArgument($path), CommandUtility::escapeShellArgument($output));
 					$this->exec($command . ' ' . $parameters . ' 2>&1');
 				}
 				break;
