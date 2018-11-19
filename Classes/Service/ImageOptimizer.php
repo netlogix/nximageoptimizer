@@ -38,8 +38,8 @@ class ImageOptimizer implements SingletonInterface
 		array $configuration = []
 	) {
 		if ($processedFile->getType() === AbstractFile::FILETYPE_IMAGE && $processedFile->isUpdated()) {
-			$this->processImage($processedFile);
 			$this->createWebpImage($processedFile);
+			$this->processImage($processedFile);
 		}
 	}
 
