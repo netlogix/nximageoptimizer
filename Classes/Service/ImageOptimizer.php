@@ -26,7 +26,7 @@ class ImageOptimizer implements SingletonInterface
 	 * @param DriverInterface $driver
 	 * @param ProcessedFile $processedFile
 	 * @param File $file
-	 * @param $taskType
+	 * @param $context
 	 * @param array $configuration
 	 */
 	public function optimizeImage(
@@ -34,8 +34,8 @@ class ImageOptimizer implements SingletonInterface
 		DriverInterface $driver,
 		ProcessedFile $processedFile,
 		File $file,
-		$taskType,
-		array $configuration = []
+		$context,
+		array $configuration
 	) {
 		if ($processedFile->getType() === AbstractFile::FILETYPE_IMAGE && $processedFile->isUpdated()) {
 			$this->createWebpImage($processedFile);
