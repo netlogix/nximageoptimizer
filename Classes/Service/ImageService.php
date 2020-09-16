@@ -11,7 +11,7 @@ class ImageService extends \TYPO3\CMS\Extbase\Service\ImageService
     /**
      * @inheritdoc
      */
-    public function applyProcessingInstructions($image, array $processingInstructions): ProcessedFile
+    public function applyProcessingInstructions($image, $processingInstructions): ProcessedFile
     {
         $quality = MathUtility::forceIntegerInRange($GLOBALS['TYPO3_CONF_VARS']['GFX']['jpg_quality'], 10, 100, 75);
         if ($image->getMimeType() === 'image/png') {
