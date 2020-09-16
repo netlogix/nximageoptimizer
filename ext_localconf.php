@@ -29,4 +29,9 @@ defined('TYPO3_MODE') or die();
         ],
     ];
 
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['defaultFilterCallbacks'][\Netlogix\Nximageoptimizer\Fal\Filter\GeneratedFileNamesFilter::class] = [
+        \Netlogix\Nximageoptimizer\Fal\Filter\GeneratedFileNamesFilter::class,
+        'filterGeneratedFiles'
+    ];
+
 })();
