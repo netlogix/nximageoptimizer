@@ -21,11 +21,11 @@ $EM_CONF['nximageoptimizer'] = [
     'author_company' => '',
     'CGLcompliance' => '',
     'CGLcompliance_note' => '',
-    'version' => '3.0.0',
+    'version' => '3.1.0',
     '_md5_values_when_last_written' => '',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-10.99.99',
+            'typo3' => '8.7.0-9.5.99,10.4.0-10.99.99',
         ],
         'conflicts' => [],
         'suggests' => []
