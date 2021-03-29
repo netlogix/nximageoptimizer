@@ -37,6 +37,14 @@ class ImageOptimizer implements SingletonInterface
         $context,
         array $configuration
     ) {
+        // Backend introduced a DeferredBackendImageProcessor and creates thumbnails async.
+        // Currently there is no api to check if the image is processed asynchronously, therefore we disable processing for backend preview images.
+        // https://forge.typo3.org/issues/92188
+        // https://forge.typo3.org/issues/93245
+        if ($processedFile->getTaskIdentifier() === ProcessedFile::CONTEXT_IMAGEPREVIEW) {
+            return;
+        }
+
         if ($processedFile->getType() === AbstractFile::FILETYPE_IMAGE && $processedFile->isUpdated()) {
             $this->createWebpImage($processedFile);
             $this->processImage($processedFile);
