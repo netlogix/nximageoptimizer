@@ -1,13 +1,19 @@
 {
   "name": "netlogix/nximageoptimizer",
-  "type": "typo3-cms-extension",
   "description": "Optimize images when they are processed by the resource publisher",
+  "type": "typo3-cms-extension",
+  "license": "MIT",
   "require": {
-    "typo3/cms-core": "~8.7.0 || ~9.5.0 || ^10.4"
+    "typo3/cms-core": "^8.7 || ^9.5 || ^10.4 || ^11.0"
   },
   "autoload": {
     "psr-4": {
       "Netlogix\\Nximageoptimizer\\": "Classes"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+        "extension-key": "nximageoptimizer"
     }
   }
 }
