@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+  Netlogix\Nximageoptimizer\:
+    resource: '../Classes/*'
+
+  Netlogix\Nximageoptimizer\EventListener\ImageOptimizer:
+    tags:
+      - name: evnet.listener
+        identifier: 'optimizeImage'
+        method: 'optimizeImage'
+        event: TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent
