@@ -1,36 +1,30 @@
 <?php
-defined('TYPO3_MODE') or die();
+
+use Netlogix\Nximageoptimizer\Fal\Filter\GeneratedFileNamesFilter;
+use Netlogix\Nximageoptimizer\Service\ImageService;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Log\LogLevel;
+use TYPO3\CMS\Core\Log\Writer\FileWriter;
+
+defined('TYPO3') or die();
 
 (function () {
 
-    $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
-    $signalSlotDispatcher->connect(
-        \TYPO3\CMS\Core\Resource\ResourceStorage::class,
-        \TYPO3\CMS\Core\Resource\Service\FileProcessingService::SIGNAL_PostFileProcess,
-        \Netlogix\Nximageoptimizer\Service\ImageOptimizer::class,
-        'optimizeImage'
-    );
-
     // Extend ImageService to force image processing (https://forge.typo3.org/issues/59067)
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\TYPO3\CMS\Extbase\Service\ImageService::class] = [
-        'className' => \Netlogix\Nximageoptimizer\Service\ImageService::class
+        'className' => ImageService::class
     ];
 
-    $loggerConfiguration = [];
-    if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9002000) {
-        $loggerConfiguration['logFile'] = \TYPO3\CMS\Core\Core\Environment::getVarPath() . '/log/nximageoptimizer.log';
-    } else {
-        $loggerConfiguration['logFile'] = 'typo3temp/var/logs/nximageoptimizer.log';
-    }
-
     $GLOBALS['TYPO3_CONF_VARS']['LOG']['Netlogix']['Nximageoptimizer']['writerConfiguration'] = [
-        \TYPO3\CMS\Core\Log\LogLevel::ERROR => [
-            \TYPO3\CMS\Core\Log\Writer\FileWriter::class => $loggerConfiguration
+        LogLevel::ERROR => [
+            FileWriter::class => [
+                'logFile' => Environment::getVarPath() . '/log/nximageoptimizer.log'
+            ]
         ],
     ];
 
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['defaultFilterCallbacks'][\Netlogix\Nximageoptimizer\Fal\Filter\GeneratedFileNamesFilter::class] = [
-        \Netlogix\Nximageoptimizer\Fal\Filter\GeneratedFileNamesFilter::class,
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['defaultFilterCallbacks'][GeneratedFileNamesFilter::class] = [
+        GeneratedFileNamesFilter::class,
         'filterGeneratedFiles'
     ];
 

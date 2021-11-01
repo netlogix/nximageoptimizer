@@ -1,14 +1,13 @@
 <?php
+declare(strict_types=1);
 
-namespace Netlogix\Nximageoptimizer\Service;
+namespace Netlogix\Nximageoptimizer\EventListener;
 
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Resource\AbstractFile;
-use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
-use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent;
 use TYPO3\CMS\Core\Resource\ProcessedFile;
-use TYPO3\CMS\Core\Resource\Service\FileProcessingService;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,31 +15,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ImageOptimizer implements SingletonInterface
 {
 
-    /**
-     * @var Logger
-     */
-    protected $logger;
+    protected Logger $logger;
 
-    /**
-     * @param FileProcessingService $fileProcessingService
-     * @param DriverInterface $driver
-     * @param ProcessedFile $processedFile
-     * @param File $file
-     * @param $context
-     * @param array $configuration
-     */
-    public function optimizeImage(
-        FileProcessingService $fileProcessingService,
-        DriverInterface $driver,
-        ProcessedFile $processedFile,
-        File $file,
-        $context,
-        array $configuration
-    ) {
+    public function __construct()
+    {
+        $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(self::class);
+    }
+
+    public function optimizeImage(AfterFileProcessingEvent $event)
+    {
         // Backend introduced a DeferredBackendImageProcessor and creates thumbnails async.
         // Currently there is no api to check if the image is processed asynchronously, therefore we disable processing for backend preview images.
         // https://forge.typo3.org/issues/92188
         // https://forge.typo3.org/issues/93245
+        $processedFile = $event->getProcessedFile();
         if ($processedFile->getTaskIdentifier() === ProcessedFile::CONTEXT_IMAGEPREVIEW) {
             return;
         }
@@ -51,10 +39,7 @@ class ImageOptimizer implements SingletonInterface
         }
     }
 
-    /**
-     * @param ProcessedFile $processedFile
-     */
-    protected function processImage(ProcessedFile $processedFile)
+    private function processImage(ProcessedFile $processedFile): void
     {
         $path = CommandUtility::escapeShellArgument(realpath($processedFile->getForLocalProcessing(false)));
         switch ($processedFile->getMimeType()) {
@@ -94,13 +79,9 @@ class ImageOptimizer implements SingletonInterface
             default:
                 return;
         }
-
     }
 
-    /**
-     * @param ProcessedFile $processedFile
-     */
-    protected function createWebpImage(ProcessedFile $processedFile)
+    private function createWebpImage(ProcessedFile $processedFile): void
     {
         $path = realpath($processedFile->getForLocalProcessing(false));
         switch ($processedFile->getMimeType()) {
@@ -109,8 +90,11 @@ class ImageOptimizer implements SingletonInterface
                 if (CommandUtility::checkCommand('cwebp')) {
                     $output = $path . '.webp';
                     $command = CommandUtility::getCommand('cwebp');
-                    $parameters = sprintf('-q 85 %s -o %s', CommandUtility::escapeShellArgument($path),
-                        CommandUtility::escapeShellArgument($output));
+                    $parameters = sprintf(
+                        '-q 85 %s -o %s',
+                        CommandUtility::escapeShellArgument($path),
+                        CommandUtility::escapeShellArgument($output)
+                    );
                     $this->exec($command . ' ' . $parameters . ' 2>&1');
                 }
                 break;
@@ -119,29 +103,12 @@ class ImageOptimizer implements SingletonInterface
         }
     }
 
-    /**
-     * @param string $command
-     * @return string
-     */
-    private function exec($command)
+    private function exec(string $command): void
     {
         $lastOutputLine = CommandUtility::exec($command, $output, $returnValue);
         if ($returnValue !== 0) {
-            $this->getLogger()->error($lastOutputLine, ['command' => $command]);
+            $this->logger->error($lastOutputLine, ['command' => $command]);
         }
-        return $returnValue;
-    }
-
-    /**
-     * @return Logger
-     */
-    private function getLogger()
-    {
-        if ($this->logger === null) {
-            $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(self::class);
-        }
-
-        return $this->logger;
     }
 
 }

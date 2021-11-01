@@ -9,9 +9,9 @@ use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 class GeneratedFileNamesFilter
 {
     public static function filterGeneratedFiles(
-        $itemName,
-        $itemIdentifier,
-        $parentIdentifier,
+        string $itemName,
+        string $itemIdentifier,
+        string $parentIdentifier,
         array $additionalInformation,
         DriverInterface $driverInstance
     ) {
