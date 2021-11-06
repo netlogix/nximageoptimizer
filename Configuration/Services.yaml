@@ -8,7 +8,7 @@ services:
 
   Netlogix\Nximageoptimizer\EventListener\ImageOptimizer:
     tags:
-      - name: evnet.listener
+      - name: event.listener
         identifier: 'optimizeImage'
         method: 'optimizeImage'
         event: TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent
