@@ -54,7 +54,7 @@ jobs:
         run: composer require typo3/cms-core="^${{ matrix.typo3 }}" -W
 
       - name: Unit Tests
-        run: XDEBUG_MODE=coverage .Build/bin/phpunit -c phpunit.xml
+        run: .Build/bin/phpunit -c phpunit.xml
 
       - name: Functional Tests
-        run: XDEBUG_MODE=coverage .Build/bin/phpunit -c phpunit_functional.xml
+        run: .Build/bin/phpunit -c phpunit_functional.xml
