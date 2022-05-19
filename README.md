@@ -2,6 +2,7 @@
 
 [![TYPO3 V10](https://img.shields.io/badge/TYPO3-10-orange.svg)](https://get.typo3.org/version/10)
 [![TYPO3 V11](https://img.shields.io/badge/TYPO3-11-orange.svg)](https://get.typo3.org/version/11)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
 [![GitHub CI status](https://github.com/netlogix/nximageoptimizer/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/netlogix/nximageoptimizer/actions)
 
 
