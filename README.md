@@ -34,7 +34,7 @@ sudo apt-get install jpegoptim optipng pngquant gifsicle
 sudo npm install -g svgo
 ```
 
-### MacOS Example (using [Homebrew](https://brew.sh/)
+### MacOS Example (using [Homebrew](https://brew.sh/))
 
 
 ```bash
