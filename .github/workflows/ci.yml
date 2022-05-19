@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.4, 8.0, 8.1]
-        typo3: [10.4, 11.5]
+        php: [ 7.4, 8.0, 8.1 ]
+        typo3: [ 10.4, 11.5 ]
 
         exclude:
           # do not run TYPO3 10.4 on PHP 8
