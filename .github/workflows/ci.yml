@@ -47,7 +47,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-php${{ matrix }}-typo3${{ runner.typo3 }}
+          key: composer-php${{ matrix.php }}-typo3${{ runner.typo3 }}
 
 
       - name: Install TYPO3 core
