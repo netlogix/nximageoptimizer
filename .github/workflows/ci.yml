@@ -40,14 +40,15 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
-      - name: Cache Composer packages
+      - name: Get Composer Cache Directory
         id: composer-cache
-        uses: actions/cache@v3
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v3
         with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-php${{ matrix }}-typo3${{ runner.typo3 }}
+
 
       - name: Install TYPO3 core
         run: composer require typo3/cms-core="^${{ matrix.typo3 }}" -W
