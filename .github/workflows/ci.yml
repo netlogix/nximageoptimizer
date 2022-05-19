@@ -1,0 +1,53 @@
+name: PHP TYPO3 Extension
+
+on: [ push, pull_request ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        env:
+          - { php: 7.4, TYPO3_VERSION: 11.5}
+          - { php: 8.0, TYPO3_VERSION: 11.5}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.env.php }}
+          tools: composer
+          extensions: pdo, sqlite3
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+#
+#      - name: Install dependencies
+#        run: composer install --prefer-dist --no-progress
+
+      - name: Install TYPO3 core
+        run: composer require typo3/cms-core="^${{ matrix.env.TYPO3_VERSION }}" -W
+
+      - name: Unit Tests
+        run: XDEBUG_MODE=coverage .Build/bin/phpunit -c phpunit.xml
+
+      - name: Functional Tests
+        run: XDEBUG_MODE=coverage .Build/bin/phpunit -c phpunit_functional.xml
