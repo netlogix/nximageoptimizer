@@ -1,4 +1,4 @@
-name: PHP TYPO3 Extension
+name: Test TYPO3 Extension
 
 on: [ push, pull_request ]
 
