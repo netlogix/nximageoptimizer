@@ -58,3 +58,29 @@ jobs:
 
       - name: Functional Tests
         run: .Build/bin/phpunit -c phpunit_functional.xml
+
+      # merge reports of unit tests and functional tests, then generate cobertura file for reporter
+      # without this step the reporter will see both tests as different code packages and the coverage report is wrong
+      - name: Merge Coverage Report
+        run: .Build/bin/phpcov merge --cobertura .Build/logs/cobertura.xml .Build/logs/coverage/
+
+      - name: Code Coverage Summary Report
+        uses: irongut/CodeCoverageSummary@v1.2.0
+        with:
+          filename: .Build/logs/cobertura.xml
+          badge: true
+          # there are not enough tests yet
+          fail_below_min: false
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md

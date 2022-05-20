@@ -31,7 +31,7 @@
         </include>
 
         <report>
-            <php outputFile=".Build/logs/coverage/functional.php"/>
+            <php outputFile=".Build/logs/coverage/functional.cov"/>
         </report>
 
     </coverage>
