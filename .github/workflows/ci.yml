@@ -7,7 +7,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-20.04
 
@@ -60,11 +60,47 @@ jobs:
       - name: Functional Tests
         run: .Build/bin/phpunit -c phpunit_functional.xml
 
-      # merge reports of unit tests and functional tests, then generate cobertura file for reporter
-      # without this step the reporter will see both tests as different code packages and the coverage report is wrong
-      - name: Merge Coverage Report
-        run: .Build/bin/phpcov merge --cobertura .Build/logs/cobertura.xml .Build/logs/coverage/
+      # upload results for later use
+      - uses: actions/upload-artifact@master
+        with:
+          name: coverage-results
+          path: .Build/logs/coverage/
 
+
+  report:
+    # only run on pull request
+    if: github.event_name == 'pull_request'
+
+    runs-on: ubuntu-20.04
+
+    name: Create Test Result Report
+
+    needs: [ test ]
+
+    steps:
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # soyhuce/phpunit-to-cobertura is not compatible with with PHP > 7.4 yet
+          php-version: 7.4
+          tools: composer
+          extensions: pdo, sqlite3
+
+      - uses: actions/download-artifact@master
+        with:
+          name: coverage-results
+          path: .Build/logs/coverage/
+
+      # merge result files from unit tests and functional tests
+      - name: Merge Coverage Reports
+        run: .Build/bin/phpcov merge --php .Build/logs/coverage.php .Build/logs/coverage/
+
+      # convert result file to cobertura
+      - name: Generate Cobertura Report
+        run: composer require soyhuce/phpunit-to-cobertura && .Build/bin/phpunit-to-cobertura .Build/logs/coverage.php .Build/logs/cobertura.xml
+
+      # finally use the cobertura report and generate coverage summary
       - name: Code Coverage Summary Report
         uses: irongut/CodeCoverageSummary@v1.2.0
         with:
@@ -73,8 +109,8 @@ jobs:
           # there are not enough tests yet
           fail_below_min: false
           format: markdown
-          hide_branch_rate: false
-          hide_complexity: true
+          hide_branch_rate: true
+          hide_complexity: false
           indicators: true
           output: both
           thresholds: '60 80'
