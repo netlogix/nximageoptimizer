@@ -93,7 +93,7 @@ jobs:
           path: .Build/logs/coverage/
 
       - name: Install Dependencies
-        run: composer install --dev --quiet --no-interaction
+        run: composer install --no-interaction
 
       # merge result files from unit tests and functional tests
       - name: Merge Coverage Reports
