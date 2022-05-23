@@ -92,6 +92,9 @@ jobs:
           name: coverage-results
           path: .Build/logs/coverage/
 
+      - name: Install Dependencies
+        run: composer install --dev --quiet --no-interaction
+
       # merge result files from unit tests and functional tests
       - name: Merge Coverage Reports
         run: .Build/bin/phpcov merge --php .Build/logs/coverage.php .Build/logs/coverage/
