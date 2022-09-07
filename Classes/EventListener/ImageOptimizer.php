@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Netlogix\Nximageoptimizer\EventListener;
 
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Resource\AbstractFile;
@@ -17,9 +18,12 @@ class ImageOptimizer implements SingletonInterface
 
     protected Logger $logger;
 
+    protected array $configuration;
+
     public function __construct()
     {
         $this->logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(self::class);
+        $this->configuration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('nximageoptimizer');
     }
 
     public function optimizeImage(AfterFileProcessingEvent $event)
@@ -83,6 +87,10 @@ class ImageOptimizer implements SingletonInterface
 
     private function createWebpImage(ProcessedFile $processedFile): void
     {
+        if ($this->configuration['disableAutomaticWebpCreation']) {
+            return;
+        }
+
         $path = realpath($processedFile->getForLocalProcessing(false));
         switch ($processedFile->getMimeType()) {
             case 'image/jpeg':

@@ -1,0 +1,2 @@
+# cat=basic/webp; type=boolean; label=Disable automatic WebP creation: By default, WebP images are created automatically from .jpg and .png images. This can be disabled if your installation creates WebP images itself.
+disableAutomaticWebpCreation = 0
