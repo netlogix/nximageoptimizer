@@ -107,6 +107,7 @@ class ImageOptimizer implements SingletonInterface
     {
         $lastOutputLine = CommandUtility::exec($command, $output, $returnValue);
         if ($returnValue !== 0) {
+            // @extensionScannerIgnoreLine
             $this->logger->error($lastOutputLine, ['command' => $command]);
         }
     }

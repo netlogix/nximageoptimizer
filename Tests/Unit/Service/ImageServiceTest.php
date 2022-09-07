@@ -23,6 +23,8 @@ class ImageServiceTest extends UnitTestCase
         switch ((new Typo3Version())->getMajorVersion()) {
             case 10:
                 $this->subject = new ImageService(
+                // this is an acceptable false positive due to backwards compatibility
+                // @extensionScannerIgnoreLine
                     $this->createMock(EnvironmentService::class),
                     $this->createMock(ResourceFactory::class)
                 );
