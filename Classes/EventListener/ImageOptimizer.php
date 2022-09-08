@@ -28,6 +28,13 @@ class ImageOptimizer implements SingletonInterface
 
     public function optimizeImage(AfterFileProcessingEvent $event)
     {
+        // this is needed for backwards compatibility
+        // @extensionScannerIgnoreLine
+        if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE)) {
+            // this is not needed for TYPO3 backend and would break deferred image processing
+            return;
+        }
+
         // Backend introduced a DeferredBackendImageProcessor and creates thumbnails async.
         // Currently there is no api to check if the image is processed asynchronously, therefore we disable processing for backend preview images.
         // https://forge.typo3.org/issues/92188
