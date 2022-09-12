@@ -33,6 +33,10 @@ abstract class AbstractImageOptimizer implements SingletonInterface, LoggerAware
 			return false;
 		}
 
+		if (get_class($this) == WebpCreator::class && $this->configuration['disableAutomaticWebpCreation']) {
+			return false;
+		}
+
 		// Backend introduced a DeferredBackendImageProcessor and creates thumbnails async.
 		// Currently, there is no api to check if the image is processed asynchronously, therefore we disable processing for backend preview images.
 		// https://forge.typo3.org/issues/92188
