@@ -12,3 +12,10 @@ services:
         identifier: 'optimizeImage'
         method: 'optimizeImage'
         event: TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent
+
+  Netlogix\Nximageoptimizer\EventListener\WebpCreator:
+    tags:
+      - name: event.listener
+        identifier: 'createWebpVersion'
+        method: 'createWebpVersion'
+        event: TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent
