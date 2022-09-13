@@ -14,6 +14,10 @@ class WebpCreator extends AbstractImageOptimizer
 
 	public function createWebpVersion(AfterFileProcessingEvent $event)
 	{
+        if ($this->configuration['disableAutomaticWebpCreation']) {
+            return;
+        }
+
 		if (!$this->isEnabled($event->getProcessedFile())) {
 			return;
 		}
@@ -30,9 +34,6 @@ class WebpCreator extends AbstractImageOptimizer
 	 */
 	private function createWebpImage(ProcessedFile $processedFile, DriverInterface $driver): void
 	{
-		if ($this->configuration['disableAutomaticWebpCreation']) {
-			return;
-		}
 
 		$targetFileName = $processedFile->getName() . '.webp';
 		$targetFolder = $processedFile->getParentFolder();
