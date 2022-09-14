@@ -14,11 +14,22 @@ class WebpCreator extends AbstractImageOptimizer
 
 	public function createWebpVersion(AfterFileProcessingEvent $event)
 	{
-        if ($this->configuration['disableAutomaticWebpCreation']) {
-            return;
-        }
+		if ($this->configuration['disableAutomaticWebpCreation']) {
+			return;
+		}
 
 		if (!$this->isEnabled($event->getProcessedFile())) {
+			return;
+		}
+
+		// stop processing if source image type is not supported
+		if (!in_array($event->getProcessedFile()->getMimeType(), ['image/jpeg', 'image/png'])) {
+			return;
+		}
+
+		// stop processing if required command is not present
+		if (!CommandUtility::checkCommand('cwebp')) {
+			$this->logger->warning('Command "cwebp" not found. This is needed for generating WebP files');
 			return;
 		}
 
@@ -41,23 +52,15 @@ class WebpCreator extends AbstractImageOptimizer
 
 		$path = realpath($originalProcessingPath);
 		$webpTempPath = $path . '.webp';
-		switch ($processedFile->getMimeType()) {
-			case 'image/jpeg':
-			case 'image/png':
-				if (CommandUtility::checkCommand('cwebp')) {
-					$output = $webpTempPath;
-					$command = CommandUtility::getCommand('cwebp');
-					$parameters = sprintf(
-						'-q 85 %s -o %s',
-						CommandUtility::escapeShellArgument($path),
-						CommandUtility::escapeShellArgument($output)
-					);
-					$this->exec($command . ' ' . $parameters . ' 2>&1');
-				}
-				break;
-			default:
-				return;
-		}
+
+		$output = $webpTempPath;
+		$command = CommandUtility::getCommand('cwebp');
+		$parameters = sprintf(
+			'-q 85 %s -o %s',
+			CommandUtility::escapeShellArgument($path),
+			CommandUtility::escapeShellArgument($output)
+		);
+		$this->exec($command . ' ' . $parameters . ' 2>&1');
 
 		if ($targetFolder->hasFile($webpFileName)) {
 			$webpFileIdentifier = $driver->getFileInFolder(
