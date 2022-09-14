@@ -34,19 +34,18 @@ class WebpCreator extends AbstractImageOptimizer
 	 */
 	private function createWebpImage(ProcessedFile $processedFile, DriverInterface $driver): void
 	{
-
-		$targetFileName = $processedFile->getName() . '.webp';
+		$webpFileName = $processedFile->getName() . '.webp';
 		$targetFolder = $processedFile->getParentFolder();
 
-		$localProcessingPath = $processedFile->getForLocalProcessing();
+		$originalProcessingPath = $processedFile->getForLocalProcessing();
 
-		$path = realpath($localProcessingPath);
-		$targetPath = $path . '.webp';
+		$path = realpath($originalProcessingPath);
+		$webpTempPath = $path . '.webp';
 		switch ($processedFile->getMimeType()) {
 			case 'image/jpeg':
 			case 'image/png':
 				if (CommandUtility::checkCommand('cwebp')) {
-					$output = $targetPath;
+					$output = $webpTempPath;
 					$command = CommandUtility::getCommand('cwebp');
 					$parameters = sprintf(
 						'-q 85 %s -o %s',
@@ -60,14 +59,14 @@ class WebpCreator extends AbstractImageOptimizer
 				return;
 		}
 
-		if ($targetFolder->hasFile($targetFileName)) {
+		if ($targetFolder->hasFile($webpFileName)) {
 			$webpFileIdentifier = $driver->getFileInFolder(
-				$targetFileName,
+				$webpFileName,
 				$targetFolder->getIdentifier()
 			);
-			$driver->replaceFile($webpFileIdentifier, $targetPath);
+			$driver->replaceFile($webpFileIdentifier, $webpTempPath);
 		} else {
-			$driver->addFile($targetPath, $targetFolder->getIdentifier(), $targetFileName);
+			$driver->addFile($webpTempPath, $targetFolder->getIdentifier(), $webpFileName);
 		}
 	}
 
