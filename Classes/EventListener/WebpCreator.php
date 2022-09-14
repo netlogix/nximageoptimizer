@@ -61,11 +61,11 @@ class WebpCreator extends AbstractImageOptimizer
 		}
 
 		if ($targetFolder->hasFile($targetFileName)) {
-			$fileIdentifier = $driver->getFileInFolder(
+			$webpFileIdentifier = $driver->getFileInFolder(
 				$targetFileName,
 				$targetFolder->getIdentifier()
 			);
-			$driver->replaceFile($fileIdentifier, $localProcessingPath);
+			$driver->replaceFile($webpFileIdentifier, $targetPath);
 		} else {
 			$driver->addFile($localProcessingPath, $targetFolder->getIdentifier(), $targetFileName);
 		}
