@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
 use TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent;
 use TYPO3\CMS\Core\Resource\ProcessedFile;
 use TYPO3\CMS\Core\Utility\CommandUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class WebpCreator extends AbstractImageOptimizer
 {
@@ -61,6 +62,9 @@ class WebpCreator extends AbstractImageOptimizer
 			CommandUtility::escapeShellArgument($output)
 		);
 		$this->exec($command . ' ' . $parameters . ' 2>&1');
+
+		// the source temp file is not needed anymore
+		GeneralUtility::unlink_tempfile($originalProcessingPath);
 
 		if ($targetFolder->hasFile($webpFileName)) {
 			$webpFileIdentifier = $driver->getFileInFolder(
