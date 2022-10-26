@@ -25,7 +25,7 @@ $EM_CONF['nximageoptimizer'] = [
     '_md5_values_when_last_written' => '',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-9.5.99,10.4.0-10.99.99',
+            'typo3' => '*',
         ],
         'conflicts' => [],
         'suggests' => []
