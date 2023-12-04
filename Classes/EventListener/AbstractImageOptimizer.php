@@ -27,9 +27,7 @@ abstract class AbstractImageOptimizer implements SingletonInterface, LoggerAware
 
     protected function isEnabled(ProcessedFile $processedFile): bool
     {
-        // this is needed for backwards compatibility
-        // @extensionScannerIgnoreLine
-        if ((TYPO3_REQUESTTYPE & ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) === 0) {
+        if (!ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             // this is not needed for TYPO3 backend and would break deferred image processing
             return false;
         }
@@ -54,7 +52,7 @@ abstract class AbstractImageOptimizer implements SingletonInterface, LoggerAware
     protected function exec(string $command): void
     {
         $output = null;
-        $returnValue = null;
+        $returnValue = 0;
         $lastOutputLine = CommandUtility::exec($command, $output, $returnValue);
         $this->logger->error($lastOutputLine, [
             'command' => $command,
