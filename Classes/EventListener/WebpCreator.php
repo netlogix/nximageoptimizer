@@ -28,7 +28,7 @@ class WebpCreator extends AbstractImageOptimizer
         }
 
         // stop processing if required command is not present
-        if (!CommandUtility::checkCommand('cwebp')) {
+        if (!$this->isCwebpInstalled()) {
             $this->logger->warning('Command "cwebp" not found. This is needed for generating WebP files');
 
             return;
@@ -38,9 +38,17 @@ class WebpCreator extends AbstractImageOptimizer
     }
 
     /**
+     * @codeCoverageIgnore This method is only used for substitution in tests
+     */
+    protected function isCwebpInstalled(): bool
+    {
+        return (bool) CommandUtility::checkCommand('cwebp');
+    }
+
+    /**
      * Creates a .webp version of the processed image file.
      */
-    private function createWebpImage(ProcessedFile $processedFile, DriverInterface $driver): void
+    protected function createWebpImage(ProcessedFile $processedFile, DriverInterface $driver): void
     {
         $webpFileName = $processedFile->getName() . '.webp';
         $targetFolder = $processedFile->getParentFolder();

@@ -22,7 +22,7 @@ class ImageOptimizer extends AbstractImageOptimizer
     /**
      * Replaces the processed file with an optimized one.
      */
-    private function processImage(ProcessedFile $processedFile): void
+    protected function processImage(ProcessedFile $processedFile): void
     {
         $localProcessingPath = $processedFile->getForLocalProcessing(true);
 
