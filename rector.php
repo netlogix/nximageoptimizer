@@ -13,6 +13,7 @@ use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector;
+use Ssch\TYPO3Rector\Set\Extension\NimutTestingFrameworkSetList;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 
@@ -69,6 +70,8 @@ return static function (RectorConfig $rectorConfig): void {
         // Typo3LevelSetList::UP_TO_TYPO3_10,
         // Typo3LevelSetList::UP_TO_TYPO3_11,
         Typo3LevelSetList::UP_TO_TYPO3_12,
+
+        NimutTestingFrameworkSetList::NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK
     ]);
 
     $rectorConfig->rule(SubstituteConstantsModeAndRequestTypeRector::class);

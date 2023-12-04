@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Netlogix\Nximageoptimizer\Tests\Functional;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class DummyTest extends FunctionalTestCase
 {
-
-    /**
-     * @test
-     * @return void
-     */
-    public function dummyTest()
+    #[Test]
+    public function dummyTest(): void
     {
         self::assertTrue(true);
     }
