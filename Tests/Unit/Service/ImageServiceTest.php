@@ -21,15 +21,7 @@ class ImageServiceTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->subject = match ((new Typo3Version())->getMajorVersion()) {
-            10 => new ImageService(
-                // this is an acceptable false positive due to backwards compatibility
-                // @extensionScannerIgnoreLine
-                $this->createMock(EnvironmentService::class),
-                $this->createMock(ResourceFactory::class)
-            ),
-            default => new ImageService($this->createMock(ResourceFactory::class)),
-        };
+        $this->subject = new ImageService($this->createMock(ResourceFactory::class));
 
         parent::setUp();
     }
