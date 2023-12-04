@@ -81,8 +81,13 @@ jobs:
           cat code-coverage-summary.md >> $GITHUB_STEP_SUMMARY
           cat code-coverage-details.md >> $GITHUB_STEP_SUMMARY
 
+      - name: 'Add title to code coverage summary'
+        shell: bash
+        run: sed -i '1 i\## TYPO3 v12.4 tests on PHP ${{ matrix.php }}' code-coverage-summary.md
+
       - name: 'Add code coverage summary as pr comment'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          header: coverage-${{ matrix.php }}
           recreate: true
           path: code-coverage-summary.md
