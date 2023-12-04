@@ -21,7 +21,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ImageOptimizerTest extends UnitTestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($GLOBALS['TYPO3_REQUEST']);
         parent::tearDown();
@@ -31,7 +31,7 @@ class ImageOptimizerTest extends UnitTestCase
     public function constructShouldSetConfiguration(): void
     {
         $configuration = [
-            'disableAutomaticWebpCreation' => 0
+            'disableAutomaticWebpCreation' => 0,
         ];
 
         $container = $this->initContainer();
@@ -192,7 +192,9 @@ class ImageOptimizerTest extends UnitTestCase
         $logger = $this->createMock(LoggerInterface::class);
         $logger->expects(self::once())
             ->method('error')
-            ->with('sample output', ['command' => 'echo "sample output"']);
+            ->with('sample output', [
+                'command' => 'echo "sample output"',
+            ]);
 
         $subject = $this->getAccessibleMock(ImageOptimizer::class, null);
         $subject->setLogger($logger);

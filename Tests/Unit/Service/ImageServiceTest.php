@@ -6,11 +6,9 @@ namespace Netlogix\Nximageoptimizer\Tests\Unit\Service;
 
 use Netlogix\Nximageoptimizer\Service\ImageService;
 use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\ProcessedFile;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
-use TYPO3\CMS\Extbase\Service\EnvironmentService;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ImageServiceTest extends UnitTestCase
