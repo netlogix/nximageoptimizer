@@ -43,7 +43,16 @@ jobs:
         shell: bash
         run: composer lint-fix
 
+      - name: 'Run PHPUnit unit tests'
+        shell: bash
+        run: composer test-unit
+
+      - name: 'Run PHPUnit functional tests'
+        shell: bash
+        run: composer test-functional
+
       - name: 'Create pull-request'
+        id: cpr
         uses: peter-evans/create-pull-request@v5.0.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
