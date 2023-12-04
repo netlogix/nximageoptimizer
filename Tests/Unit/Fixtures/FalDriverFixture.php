@@ -6,205 +6,166 @@ namespace Netlogix\Nximageoptimizer\Tests\Unit\Fixtures;
 
 use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
 
-class FalDriverFixture implements DriverInterface {
-    public function processConfiguration()
+class FalDriverFixture implements DriverInterface
+{
+    public function processConfiguration(): void
     {
-        // TODO: Implement processConfiguration() method.
     }
 
-    public function setStorageUid($storageUid)
+    public function setStorageUid($storageUid): void
     {
-        // TODO: Implement setStorageUid() method.
     }
 
-    public function initialize()
+    public function initialize(): void
     {
-        // TODO: Implement initialize() method.
     }
 
-    public function getCapabilities()
+    public function getCapabilities(): void
     {
-        // TODO: Implement getCapabilities() method.
     }
 
-    public function mergeConfigurationCapabilities($capabilities)
+    public function mergeConfigurationCapabilities($capabilities): void
     {
-        // TODO: Implement mergeConfigurationCapabilities() method.
     }
 
-    public function hasCapability($capability)
+    public function hasCapability($capability): void
     {
-        // TODO: Implement hasCapability() method.
     }
 
-    public function isCaseSensitiveFileSystem()
+    public function isCaseSensitiveFileSystem(): void
     {
-        // TODO: Implement isCaseSensitiveFileSystem() method.
     }
 
-    public function sanitizeFileName($fileName, $charset = '')
+    public function sanitizeFileName($fileName, $charset = ''): void
     {
-        // TODO: Implement sanitizeFileName() method.
     }
 
-    public function hashIdentifier($identifier)
+    public function hashIdentifier($identifier): void
     {
-        // TODO: Implement hashIdentifier() method.
     }
 
-    public function getRootLevelFolder()
+    public function getRootLevelFolder(): void
     {
-        // TODO: Implement getRootLevelFolder() method.
     }
 
-    public function getDefaultFolder()
+    public function getDefaultFolder(): void
     {
-        // TODO: Implement getDefaultFolder() method.
     }
 
-    public function getParentFolderIdentifierOfIdentifier($fileIdentifier)
+    public function getParentFolderIdentifierOfIdentifier($fileIdentifier): void
     {
-        // TODO: Implement getParentFolderIdentifierOfIdentifier() method.
     }
 
-    public function getPublicUrl($identifier)
+    public function getPublicUrl($identifier): void
     {
-        // TODO: Implement getPublicUrl() method.
     }
 
-    public function createFolder($newFolderName, $parentFolderIdentifier = '', $recursive = false)
+    public function createFolder($newFolderName, $parentFolderIdentifier = '', $recursive = false): void
     {
-        // TODO: Implement createFolder() method.
     }
 
-    public function renameFolder($folderIdentifier, $newName)
+    public function renameFolder($folderIdentifier, $newName): void
     {
-        // TODO: Implement renameFolder() method.
     }
 
-    public function deleteFolder($folderIdentifier, $deleteRecursively = false)
+    public function deleteFolder($folderIdentifier, $deleteRecursively = false): void
     {
-        // TODO: Implement deleteFolder() method.
     }
 
-    public function fileExists($fileIdentifier)
+    public function fileExists($fileIdentifier): void
     {
-        // TODO: Implement fileExists() method.
     }
 
-    public function folderExists($folderIdentifier)
+    public function folderExists($folderIdentifier): void
     {
-        // TODO: Implement folderExists() method.
     }
 
-    public function isFolderEmpty($folderIdentifier)
+    public function isFolderEmpty($folderIdentifier): void
     {
-        // TODO: Implement isFolderEmpty() method.
     }
 
-    public function addFile($localFilePath, $targetFolderIdentifier, $newFileName = '', $removeOriginal = true)
+    public function addFile($localFilePath, $targetFolderIdentifier, $newFileName = '', $removeOriginal = true): void
     {
-        // TODO: Implement addFile() method.
     }
 
-    public function createFile($fileName, $parentFolderIdentifier)
+    public function createFile($fileName, $parentFolderIdentifier): void
     {
-        // TODO: Implement createFile() method.
     }
 
-    public function copyFileWithinStorage($fileIdentifier, $targetFolderIdentifier, $fileName)
+    public function copyFileWithinStorage($fileIdentifier, $targetFolderIdentifier, $fileName): void
     {
-        // TODO: Implement copyFileWithinStorage() method.
     }
 
-    public function renameFile($fileIdentifier, $newName)
+    public function renameFile($fileIdentifier, $newName): void
     {
-        // TODO: Implement renameFile() method.
     }
 
-    public function replaceFile($fileIdentifier, $localFilePath)
+    public function replaceFile($fileIdentifier, $localFilePath): void
     {
-        // TODO: Implement replaceFile() method.
     }
 
-    public function deleteFile($fileIdentifier)
+    public function deleteFile($fileIdentifier): void
     {
-        // TODO: Implement deleteFile() method.
     }
 
-    public function hash($fileIdentifier, $hashAlgorithm)
+    public function hash($fileIdentifier, $hashAlgorithm): void
     {
-        // TODO: Implement hash() method.
     }
 
-    public function moveFileWithinStorage($fileIdentifier, $targetFolderIdentifier, $newFileName)
+    public function moveFileWithinStorage($fileIdentifier, $targetFolderIdentifier, $newFileName): void
     {
-        // TODO: Implement moveFileWithinStorage() method.
     }
 
-    public function moveFolderWithinStorage($sourceFolderIdentifier, $targetFolderIdentifier, $newFolderName)
+    public function moveFolderWithinStorage($sourceFolderIdentifier, $targetFolderIdentifier, $newFolderName): void
     {
-        // TODO: Implement moveFolderWithinStorage() method.
     }
 
-    public function copyFolderWithinStorage($sourceFolderIdentifier, $targetFolderIdentifier, $newFolderName)
+    public function copyFolderWithinStorage($sourceFolderIdentifier, $targetFolderIdentifier, $newFolderName): void
     {
-        // TODO: Implement copyFolderWithinStorage() method.
     }
 
-    public function getFileContents($fileIdentifier)
+    public function getFileContents($fileIdentifier): void
     {
-        // TODO: Implement getFileContents() method.
     }
 
-    public function setFileContents($fileIdentifier, $contents)
+    public function setFileContents($fileIdentifier, $contents): void
     {
-        // TODO: Implement setFileContents() method.
     }
 
-    public function fileExistsInFolder($fileName, $folderIdentifier)
+    public function fileExistsInFolder($fileName, $folderIdentifier): void
     {
-        // TODO: Implement fileExistsInFolder() method.
     }
 
-    public function folderExistsInFolder($folderName, $folderIdentifier)
+    public function folderExistsInFolder($folderName, $folderIdentifier): void
     {
-        // TODO: Implement folderExistsInFolder() method.
     }
 
-    public function getFileForLocalProcessing($fileIdentifier, $writable = true)
+    public function getFileForLocalProcessing($fileIdentifier, $writable = true): void
     {
-        // TODO: Implement getFileForLocalProcessing() method.
     }
 
-    public function getPermissions($identifier)
+    public function getPermissions($identifier): void
     {
-        // TODO: Implement getPermissions() method.
     }
 
-    public function dumpFileContents($identifier)
+    public function dumpFileContents($identifier): void
     {
-        // TODO: Implement dumpFileContents() method.
     }
 
-    public function isWithin($folderIdentifier, $identifier)
+    public function isWithin($folderIdentifier, $identifier): void
     {
-        // TODO: Implement isWithin() method.
     }
 
-    public function getFileInfoByIdentifier($fileIdentifier, array $propertiesToExtract = [])
+    public function getFileInfoByIdentifier($fileIdentifier, array $propertiesToExtract = []): void
     {
-        // TODO: Implement getFileInfoByIdentifier() method.
     }
 
-    public function getFolderInfoByIdentifier($folderIdentifier)
+    public function getFolderInfoByIdentifier($folderIdentifier): void
     {
-        // TODO: Implement getFolderInfoByIdentifier() method.
     }
 
-    public function getFileInFolder($fileName, $folderIdentifier)
+    public function getFileInFolder($fileName, $folderIdentifier): void
     {
-        // TODO: Implement getFileInFolder() method.
     }
 
     public function getFilesInFolder(
@@ -215,13 +176,11 @@ class FalDriverFixture implements DriverInterface {
         array $filenameFilterCallbacks = [],
         $sort = '',
         $sortRev = false
-    ) {
-        // TODO: Implement getFilesInFolder() method.
+    ): void {
     }
 
-    public function getFolderInFolder($folderName, $folderIdentifier)
+    public function getFolderInFolder($folderName, $folderIdentifier): void
     {
-        // TODO: Implement getFolderInFolder() method.
     }
 
     public function getFoldersInFolder(
@@ -232,18 +191,17 @@ class FalDriverFixture implements DriverInterface {
         array $folderNameFilterCallbacks = [],
         $sort = '',
         $sortRev = false
-    ) {
-        // TODO: Implement getFoldersInFolder() method.
+    ): void {
     }
 
-    public function countFilesInFolder($folderIdentifier, $recursive = false, array $filenameFilterCallbacks = [])
+    public function countFilesInFolder($folderIdentifier, $recursive = false, array $filenameFilterCallbacks = []): void
     {
-        // TODO: Implement countFilesInFolder() method.
     }
 
-    public function countFoldersInFolder($folderIdentifier, $recursive = false, array $folderNameFilterCallbacks = [])
-    {
-        // TODO: Implement countFoldersInFolder() method.
+    public function countFoldersInFolder(
+        $folderIdentifier,
+        $recursive = false,
+        array $folderNameFilterCallbacks = []
+    ): void {
     }
 }
-

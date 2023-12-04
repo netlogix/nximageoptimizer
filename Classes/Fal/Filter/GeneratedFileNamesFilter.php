@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Netlogix\Nximageoptimizer\Fal\Filter;
@@ -18,9 +19,11 @@ class GeneratedFileNamesFilter
         if (!$driverInstance instanceof LocalDriver) {
             return true;
         }
+
         if (preg_match('%.+\.(jpe?g|png)\.webp$%i', $itemName)) {
             return -1;
         }
+
         return true;
     }
 }
