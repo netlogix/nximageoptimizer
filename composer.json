@@ -46,8 +46,7 @@
     "test-unit": "phpunit -c phpunit.xml",
     "test-functional": "phpunit -c phpunit_functional.xml",
     "post-autoload-dump": [
-      "@prepare-extension-test-structure",
-      "mkdir -p .Build/logs/"
+      "@prepare-extension-test-structure"
     ],
     "prepare-extension-test-structure": [
       "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
