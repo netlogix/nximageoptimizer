@@ -44,6 +44,10 @@ jobs:
         shell: bash
         run: composer validate --strict
 
+      - name: 'Install Composer Dependencies'
+        shell: bash
+        run: composer install --no-interaction
+
       - name: 'PHPUnit unit tests'
         shell: bash
         run: composer test-unit
