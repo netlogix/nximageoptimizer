@@ -24,7 +24,7 @@ class WebpCreatorTest extends UnitTestCase
     {
         $container = $this->initContainer();
         $container->set(ExtensionConfiguration::class, $this->getExtensionConfigurationMock([
-            'disableAutomaticWebpCreation' => 1
+            'disableAutomaticWebpCreation' => 1,
         ]));
 
         $subject = $this->getAccessibleMock(WebpCreator::class, ['createWebpImage']);
@@ -48,7 +48,7 @@ class WebpCreatorTest extends UnitTestCase
     {
         $container = $this->initContainer();
         $container->set(ExtensionConfiguration::class, $this->getExtensionConfigurationMock([
-            'disableAutomaticWebpCreation' => 0
+            'disableAutomaticWebpCreation' => 0,
         ]));
 
         $subject = $this->getAccessibleMock(WebpCreator::class, ['isEnabled', 'createWebpImage']);
@@ -76,7 +76,7 @@ class WebpCreatorTest extends UnitTestCase
     {
         $container = $this->initContainer();
         $container->set(ExtensionConfiguration::class, $this->getExtensionConfigurationMock([
-            'disableAutomaticWebpCreation' => 0
+            'disableAutomaticWebpCreation' => 0,
         ]));
 
         $subject = $this->getAccessibleMock(WebpCreator::class, ['isEnabled', 'createWebpImage']);
@@ -110,7 +110,7 @@ class WebpCreatorTest extends UnitTestCase
     {
         $container = $this->initContainer();
         $container->set(ExtensionConfiguration::class, $this->getExtensionConfigurationMock([
-            'disableAutomaticWebpCreation' => 0
+            'disableAutomaticWebpCreation' => 0,
         ]));
 
         $subject = $this->getAccessibleMock(WebpCreator::class, ['isEnabled', 'createWebpImage', 'isCwebpInstalled']);
@@ -155,7 +155,7 @@ class WebpCreatorTest extends UnitTestCase
     {
         $container = $this->initContainer();
         $container->set(ExtensionConfiguration::class, $this->getExtensionConfigurationMock([
-            'disableAutomaticWebpCreation' => 0
+            'disableAutomaticWebpCreation' => 0,
         ]));
 
         $subject = $this->getAccessibleMock(WebpCreator::class, ['isEnabled', 'createWebpImage', 'isCwebpInstalled']);
@@ -192,10 +192,7 @@ class WebpCreatorTest extends UnitTestCase
 
     public static function mimeTypeDataProvider(): array
     {
-        return [
-            ['image/jpeg'],
-            ['image/png']
-        ];
+        return [['image/jpeg'], ['image/png']];
     }
 
     private function getExtensionConfigurationMock(array $configuration): ExtensionConfiguration

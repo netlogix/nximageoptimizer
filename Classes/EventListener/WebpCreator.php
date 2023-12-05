@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netlogix\Nximageoptimizer\EventListener;
 
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
 use TYPO3\CMS\Core\Resource\Event\AfterFileProcessingEvent;
 use TYPO3\CMS\Core\Resource\ProcessedFile;
@@ -37,9 +38,7 @@ class WebpCreator extends AbstractImageOptimizer
         $this->createWebpImage($event->getProcessedFile(), $event->getDriver());
     }
 
-    /**
-     * @codeCoverageIgnore This method is only used for substitution in tests
-     */
+    #[CodeCoverageIgnore]
     protected function isCwebpInstalled(): bool
     {
         return (bool) CommandUtility::checkCommand('cwebp');
