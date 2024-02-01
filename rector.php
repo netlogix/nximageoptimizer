@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
+use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PostRector\Rector\NameImportingPostRector;
 use Rector\Set\ValueObject\LevelSetList;
@@ -96,6 +98,12 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         // PHP
         AddLiteralSeparatorToNumberRector::class,
+        FirstClassCallableRector::class => [
+            'ext_localconf.php',
+        ],
+        CallableThisArrayToAnonymousFunctionRector::class => [
+            'ext_localconf.php',
+        ],
 
         // TYPO3
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536

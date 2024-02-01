@@ -20,5 +20,8 @@ defined('TYPO3') || die();
             ]
         ],
     ];
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['defaultFilterCallbacks'][GeneratedFileNamesFilter::class] = GeneratedFileNamesFilter::filterGeneratedFiles(...);
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fal']['defaultFilterCallbacks'][GeneratedFileNamesFilter::class] = [
+        GeneratedFileNamesFilter::class,
+        'filterGeneratedFiles'
+    ];
 })();
