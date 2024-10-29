@@ -27,7 +27,10 @@ abstract class AbstractImageOptimizer implements SingletonInterface, LoggerAware
 
     protected function isEnabled(ProcessedFile $processedFile): bool
     {
-        if (!ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+        if (
+            !array_key_exists('TYPO3_REQUEST', $GLOBALS) ||
+            !ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()
+        ) {
             // this is not needed for TYPO3 backend and would break deferred image processing
             return false;
         }
